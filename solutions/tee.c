@@ -45,4 +45,11 @@ int main(int argc, char* argv[]) {
   if (read_res < 0) {
     errExit("reading from stdin");
   }
+
+  // Clean up opened files.
+  for (int i = 0; i < file_count; i++) {
+    if (close(fds[i]) < 0) {
+      errExit("error on closing file.");
+    }
+  }
 }
