@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-GEN_EXE = tee
+GEN_EXE = tee cp
 
 EXE = ${GEN_EXE}
 
@@ -11,7 +11,7 @@ allgen : ${GEN_EXE}
 clean :
 	${RM} ${EXE} *.o
 	${RM} -rf tests/testspace
-	mkdir -P tests/testspace
+	mkdir -p tests/testspace
 
 showall :
 	@ echo ${EXE}
