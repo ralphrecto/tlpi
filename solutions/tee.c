@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     usage(argv[0]);
   }
 
-  int append_mode = strcmp(argv[1], "-a");
+  int append_mode = strcmp(argv[1], "-a") == 0;
 
   if (append_mode && (argc < 3)) {
     usage(argv[0]);
@@ -22,10 +22,11 @@ int main(int argc, char* argv[]) {
 
   // Open all files given as input.
   int file_count = argc - (append_mode ? 2 : 1);
-  int open_flags = O_WRONLY | (append_mode ? O_APPEND : 0);
+
+  int open_flags = O_WRONLY | O_CREAT | (append_mode ? O_APPEND : 0);
   int fds[file_count];
-  for (int i = 0; i < file_count; file_count++) {
-    fds[i] = open(argv[argc - file_count], open_flags);
+  for (int i = 0; i < file_count; i++) {
+    fds[i] = open(argv[argc - file_count + i], open_flags);
   }
 
   // Allocate buffer to place stdin data into.
@@ -36,7 +37,7 @@ int main(int argc, char* argv[]) {
   while ((read_res = read(STDIN_FILENO, buf, max_read)) > 0) {
     write(STDOUT_FILENO, buf, read_res);
 
-    for (int i = 0; i < file_count; file_count++) {
+    for (int i = 0; i < file_count; i++) {
       write(fds[i], buf, read_res);
     }
   }

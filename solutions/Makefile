@@ -10,6 +10,8 @@ allgen : ${GEN_EXE}
 
 clean :
 	${RM} ${EXE} *.o
+	${RM} -rf tests/testspace
+	mkdir -P tests/testspace
 
 showall :
 	@ echo ${EXE}
