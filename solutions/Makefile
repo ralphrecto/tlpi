@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-GEN_EXE = ex04_01
+GEN_EXE = tee
 
 EXE = ${GEN_EXE}
 
@@ -8,8 +8,7 @@ all : ${EXE}
 
 allgen : ${GEN_EXE}
 
-
-clean : 
+clean :
 	${RM} ${EXE} *.o
 
 showall :
